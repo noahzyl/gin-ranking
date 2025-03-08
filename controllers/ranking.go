@@ -19,7 +19,7 @@ func (r *RankingController) GetRankingList(ctx *gin.Context) {
 	search := &RankingSearch{}
 	err := ctx.BindJSON(search) // Parse parameters of the request
 	if err != nil {
-		ReturnErrorJson(ctx, 4001, gin.H{"error": err})
+		ReturnErrorJson(ctx, 4001, gin.H{"error": err.Error()})
 	}
 	ReturnSuccessJson(ctx, 0, search.Name, search.Cid, 1)
 }

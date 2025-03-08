@@ -22,7 +22,7 @@ func Router() *gin.Engine {
 	user := r.Group("/user")
 	{
 		// controllers.UserController{} will create an anonymous variable of UserController
-		user.GET("/info", (&controllers.UserController{}).GetUserInfo) // ctx is automatically passed by gin
+		user.GET("/info/:id", (&controllers.UserController{}).GetUserInfo) // ctx is automatically passed by gin
 		user.POST("/list", (&controllers.UserController{}).GetUserList)
 		user.PUT("/add", func(ctx *gin.Context) {
 			ctx.String(http.StatusOK, "/user/add...")
