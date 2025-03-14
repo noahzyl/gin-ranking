@@ -8,7 +8,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/noahzyl/gin-ranking/controllers"
 	"github.com/noahzyl/gin-ranking/pkg/logger"
-	"net/http"
 )
 
 func Router() *gin.Engine {
@@ -22,14 +21,11 @@ func Router() *gin.Engine {
 	user := r.Group("/user")
 	{
 		// controllers.UserController{} will create an anonymous variable of UserController
-		user.GET("/info/:id", (&controllers.UserController{}).GetUserInfo) // ctx is automatically passed by gin
-		user.POST("/list", (&controllers.UserController{}).GetUserList)
-		user.PUT("/add", func(ctx *gin.Context) {
-			ctx.String(http.StatusOK, "/user/add...")
-		})
-		user.DELETE("/delete", func(ctx *gin.Context) {
-			ctx.String(http.StatusOK, "/user/delete...")
-		})
+		user.POST("/add", (&controllers.UserController{}).AddUser) // // ctx is automatically passed by gin
+		user.POST("/update", (&controllers.UserController{}).UpdateUserName)
+		user.POST("/delete", (&controllers.UserController{}).DeleteUser)
+		user.GET("/info/:id", (&controllers.UserController{}).GetUserInfo)
+		user.GET("/list/:username", (&controllers.UserController{}).GetUserList)
 	}
 
 	// Set a router group of ranking (ranking router)
